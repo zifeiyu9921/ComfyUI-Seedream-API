@@ -1,0 +1,407 @@
+{
+  "last_node_id": 8,
+  "last_link_id": 5,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "title": "加载图像 · 上传参考图片",
+      "pos": [
+        60,
+        170
+      ],
+      "size": [
+        300,
+        430
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 3,
+      "type": "SeedreamLongEdge",
+      "title": "整数 · 最大边长",
+      "pos": [
+        80,
+        700
+      ],
+      "size": [
+        270,
+        90
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "最大边长",
+          "type": "INT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SeedreamLongEdge"
+      },
+      "widgets_values": [
+        1536
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 4,
+      "type": "SeedreamResizeLongEdge",
+      "title": "按最大边长缩放",
+      "pos": [
+        440,
+        570
+      ],
+      "size": [
+        340,
+        180
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "long_edge",
+          "type": "INT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "图像",
+          "type": "IMAGE",
+          "links": [
+            3
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "宽度",
+          "type": "INT",
+          "links": null,
+          "slot_index": 1
+        },
+        {
+          "name": "高度",
+          "type": "INT",
+          "links": null,
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SeedreamResizeLongEdge"
+      },
+      "widgets_values": [
+        "lanczos"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 2,
+      "type": "SeedreamPromptText",
+      "title": "文本 · 自定义提示词",
+      "pos": [
+        400,
+        170
+      ],
+      "size": [
+        400,
+        320
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "文本",
+          "type": "STRING",
+          "links": [
+            4
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SeedreamPromptText"
+      },
+      "widgets_values": [
+        "保留参考图主体，按照我的描述调整画面：优化光影与细节，画面清晰自然，不添加文字。"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 5,
+      "type": "SeedreamAPIGenerateV2",
+      "title": "Seedream · 图像生成 · ¥0.1/次",
+      "pos": [
+        850,
+        250
+      ],
+      "size": [
+        390,
+        440
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 4
+        },
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image3",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image4",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image5",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image6",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image7",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image8",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image9",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image10",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "生成图片",
+          "type": "IMAGE",
+          "links": [
+            5
+          ],
+          "slot_index": 0,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SeedreamAPIGenerateV2"
+      },
+      "widgets_values": [
+        "auto",
+        ""
+      ],
+      "color": "#432",
+      "bgcolor": "#665735"
+    },
+    {
+      "id": 6,
+      "type": "SeedreamSaveImage",
+      "title": "保存图像 · 预览输出",
+      "pos": [
+        1310,
+        250
+      ],
+      "size": [
+        430,
+        510
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SeedreamSaveImage"
+      },
+      "widgets_values": [
+        "Seedream/Seedream"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 7,
+      "type": "Note",
+      "title": "Seedream · 子非鱼 API",
+      "pos": [
+        60,
+        35
+      ],
+      "size": [
+        650,
+        70
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note"
+      },
+      "widgets_values": [
+        "上传图片 → 填写文本 → 选择比例 → 运行\n生成节点可自定义密钥，点击眼睛显示 / 隐藏。"
+      ],
+      "color": "#433",
+      "bgcolor": "#654"
+    },
+    {
+      "id": 8,
+      "type": "Note",
+      "title": "使用提示",
+      "pos": [
+        850,
+        760
+      ],
+      "size": [
+        390,
+        150
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note"
+      },
+      "widgets_values": [
+        "ratio：输出比例；auto 跟随第一张参考图。\n密钥必填：留空不能运行，由云端验证有效性。\n密钥仅在当前页面保留，导出工作流会清空。\n最大边长只缩小上传参考图，不限制输出分辨率。"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      3,
+      0,
+      4,
+      1,
+      "INT"
+    ],
+    [
+      3,
+      4,
+      0,
+      5,
+      1,
+      "IMAGE"
+    ],
+    [
+      4,
+      2,
+      0,
+      5,
+      0,
+      "STRING"
+    ],
+    [
+      5,
+      5,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.75,
+      "offset": [
+        20,
+        20
+      ]
+    }
+  },
+  "version": 0.4
+}

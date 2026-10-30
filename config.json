@@ -1,0 +1,5 @@
+{
+  "base_url": "https://a6.zifeiyuai.top:2345",
+  "timeout": 3000,
+  "poll_interval": 2
+}

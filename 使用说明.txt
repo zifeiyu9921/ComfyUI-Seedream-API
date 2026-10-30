@@ -1,0 +1,57 @@
+﻿Seedream API · 分离节点版（v2）
+
+功能与布局
+左侧：加载图像 / 上传参考图片。
+中间绿色：独立文本提示词节点。
+左下：整数最大边长，默认 1536。
+中下：按最大边长等比缩小参考图，只缩小、不放大。
+中右金色：Seedream 生成节点，选择比例、填写密钥。
+右侧：预览并保存生成结果。
+
+使用
+1. 重启 ComfyUI，并在浏览器按 Ctrl+F5 刷新，加载新的密码输入控件。
+2. 导入 workflows/Seedream_Image_to_Image.json。
+3. 上传参考图，在绿色文本节点填写提示词。
+4. 在生成节点选择 ratio，必须输入有效的云端 API 密钥。
+5. 点击运行，等待右侧预览结果。
+纯文字生图可导入 Seedream_Text_to_Image.json。
+
+密钥输入与眼睛按钮
+输入框默认是密码状态，字符显示为圆点。
+点击右侧闭眼图标可显示输入内容，再次点击可隐藏。
+仅使用节点输入框中的密钥，留空、只输入空格或缺少密钥时不提交生成请求。
+不读取 config.json 或环境变量中的密钥，节点包和默认工作流也不包含任何密钥。
+密钥是否有效由云端接口验证，无效或无权限的密钥无法生成图片。
+眼睛只切换界面显示，不改变提交给接口的真实密钥。
+自定义输入只在当前页面保留，不写入导出的普通工作流 JSON；重新载入后必须重新填写。
+附带的 Seedream 保存图像节点会从 PNG 的提示词和工作流元数据中移除 api_key。
+ComfyUI 的执行请求、执行历史和“导出 API 格式”仍可能含运行时密钥，这些不是普通工作流导出文件。
+config.json 仅配置接口地址和超时时间，不配置密钥。
+
+比例与多图
+auto、1:1、2:3、3:2、3:4、4:3、9:16、16:9。
+auto 根据第一张上传参考图匹配最接近的支持比例；纯文字生图时由服务器决定。
+生成节点提供 image1 至 image10 可选参考图入口，按编号顺序上传；最终可接收的数量由服务器决定。
+可以自行添加加载图像节点连接更多入口；不同尺寸无需拼成同一批次。
+最大边长控制上传参考图尺寸。接口未提供输出宽高、种子、2K/4K 或格式参数，因此不添加无效控制。
+若接口返回多张图片，将逐张保存并保留原始尺寸。
+
+已安装位置
+节点：J:\ComfyUI-aki-v1.6\ComfyUI\custom_nodes\ComfyUI-Seedream-API
+工作流：J:\ComfyUI-aki-v1.6\ComfyUI\user\default\workflows\Seedream
+默认图片输出：J:\ComfyUI-aki-v1.6\ComfyUI\output\Seedream
+如启动器设置了其他输出目录，以实际配置为准。
+
+换电脑安装
+将整个 ComfyUI-Seedream-API 文件夹复制到 ComfyUI/custom_nodes，重启并刷新网页，然后导入工作流。
+包内包含所有新增节点，不依赖截图中的其他第三方节点包。
+原来的简洁版 SeedreamAPIGenerate 节点保留，旧工作流也必须在节点中填写密钥。
+若缺少 requests / Pillow / numpy，使用 ComfyUI 自己的 Python 安装 requirements.txt；不需要重装 torch。
+
+运行说明
+生成使用远程接口，不加载本地模型。
+每次运行提交一个新生成任务；停止运行只停止本地等待，原接口没有远程取消功能。
+运行状态显示在进度条和 ComfyUI 控制台；默认最长等待 3000 秒。
+
+接口依据：用户提供的 seedream_client.py。
+ComfyUI 扩展说明：https://docs.comfy.org/custom-nodes/js/javascript_hooks
